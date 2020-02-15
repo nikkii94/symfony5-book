@@ -1,0 +1,7 @@
+.idea/**/*
+.env
+certs/**/*
+log/**/*
+.data/**/*
+docker-compose.example.yml
+.github/workflows/static-code-analysis.example.yml
