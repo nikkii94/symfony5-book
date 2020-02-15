@@ -1,4 +1,6 @@
 {
+    "name": "nikkii94/symfony5-book",
+    "description": "Symfony 5 book",
     "type": "project",
     "license": "proprietary",
     "require": {
