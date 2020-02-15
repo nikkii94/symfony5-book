@@ -1,0 +1,20 @@
+name: Static code analysis
+
+on: [push, pull_request]
+
+jobs:
+    static-code-analysis:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+
+            - name: Install composer dependencies
+              working-directory: ./app
+              run: |
+                  composer install -q --no-ansi --no-interaction --no-suggest --prefer-dist
+                  composer require phpstan/phpstan
+
+            - name: Run PHPStan
+              working-directory: ./app
+              run: |
+                  php vendor/bin/phpstan analyze -c phpstan.neon src tests --level 7
