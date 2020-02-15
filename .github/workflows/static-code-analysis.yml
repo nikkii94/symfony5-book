@@ -15,6 +15,10 @@ jobs:
         steps:
             - uses: actions/checkout@master
 
+            -   name: Validate composer.json and composer.lock
+                working-directory: ./app
+                run: composer validate
+
             - name: Install composer dependencies
               working-directory: ./app
               run: |
