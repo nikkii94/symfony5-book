@@ -27,8 +27,3 @@ easy_admin:
                     - { property: 'author' }
                     - { property: 'email', type: 'email' }
                     - text
-
-#        # List the entity class name you want to manage
-#        - App\Entity\Product
-#        - App\Entity\Category
-#        - App\Entity\User
