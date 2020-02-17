@@ -10,6 +10,14 @@ easy_admin:
     entities:
         Conference:
             class: App\Entity\Conference
+            list:
+                fields:
+                    - id
+                    - slug
+                    - city
+                    - year
+                    - isInternational
+                    - comments
 
         Comment:
             class: App\Entity\Comment
@@ -17,6 +25,7 @@ easy_admin:
                 fields:
                     - author
                     - { property: 'email', type: 'email' }
+                    - { property: 'photoFilename', type: 'image', 'base_path': '/uploads/photos', label: 'Photo' }
                     - { property: 'createdAt', type: 'datetime' }
                 sort: ['createdAt', 'ASC']
                 filters: ['conference']
