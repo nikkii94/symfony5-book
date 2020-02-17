@@ -5,9 +5,12 @@ build:
 	@docker-compose -f docker-compose.yml build
 
 start:
-	@docker-compose -f docker-compose.yml up -d && start https://symfony5book.local
+	@docker-compose -f docker-compose.yml up -d && start https://symfony5book.local/
 
 stop:
+	@docker-compose stop
+
+down:
 	@docker-compose down
 
 config:
@@ -17,6 +20,7 @@ ssh:
 	@docker exec -it $(app_container_name) bash
 
 export-ssl:
+	rm -rf certs
 	@docker cp $(nginx_container_name):/etc/ssl ./certs
 
 #check: composer-validate cs-check phpstan psalm

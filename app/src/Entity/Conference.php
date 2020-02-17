@@ -36,7 +36,7 @@ class Conference
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="conference", orphanRemoval=true)
      */
-    private ArrayCollection $comments;
+    private Collection $comments;
 
     public function __construct()
     {
