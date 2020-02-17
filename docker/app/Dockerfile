@@ -84,8 +84,8 @@ RUN set -eux; \
 	composer clear-cache
 
 # add supervisor
-RUN mkdir -p /var/log/supervisor
-COPY --chown=root:root ./supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+#RUN mkdir -p /var/log/supervisor
+#COPY --chown=root:root ./supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 #COPY --chown=root:root ./docker/other/cron /var/spool/cron/crontabs/root
 #RUN chmod 0600 /var/spool/cron/crontabs/root
 
