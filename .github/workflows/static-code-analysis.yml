@@ -24,8 +24,11 @@ jobs:
               run: |
                   composer install --no-ansi --no-interaction --no-suggest --prefer-dist
                   composer require phpstan/phpstan
+                  composer require phpstan/extension-installer
+                  composer require phpstan/phpstan-symfony
+                  composer require phpstan/phpstan-doctrine
 
             - name: Run PHPStan
               working-directory: ./app
               run: |
-                  php vendor/bin/phpstan analyze -c phpstan.neon src tests --level 7
+                  php vendor/bin/phpstan analyze -c phpstan.neon src --level 7

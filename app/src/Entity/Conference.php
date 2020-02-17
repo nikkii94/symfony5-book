@@ -16,27 +16,27 @@ class Conference
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $city;
+    private ?string $city = null;
 
     /**
      * @ORM\Column(type="string", length=4)
      */
-    private $year;
+    private ?string $year = null;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isInternational;
+    private ?bool $isInternational = null;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="conference", orphanRemoval=true)
      */
-    private $comments;
+    private ArrayCollection $comments;
 
     public function __construct()
     {

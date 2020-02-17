@@ -1,3 +1,18 @@
+includes:
+#    - vendor/phpstan/phpstan-symfony/extension.neon
+#    - vendor/phpstan/phpstan-symfony/rules.neon
+
 parameters:
+#    doctrine:
+#        objectManagerLoader: build/phpstan/doctrine-orm-bootstrap.php
+
+    symfony:
+        container_xml_path: '%rootDir%/../../../var/cache/dev/App_KernelDevDebugContainer.xml'
+        console_application_loader: build/phpstan/console-loader.php
+
     autoload_directories:
         - %rootDir%/../../../src/Migrations
+
+    checkGenericClassInNonGenericObjectType: false
+    checkMissingIterableValueType: false
+

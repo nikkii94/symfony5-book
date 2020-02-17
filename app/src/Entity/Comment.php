@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -14,38 +15,38 @@ class Comment
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $author;
+    private ?string $author = null;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $text;
+    private ?string $text = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $email;
+    private ?string $email = null;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    private ?DateTimeInterface $createdAt = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Conference", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $conference;
+    private ?Conference $conference = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $photoFilename;
+    private ?string $photoFilename = null;
 
     public function __toString() :string
     {
