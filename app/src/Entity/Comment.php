@@ -5,6 +5,7 @@ namespace App\Entity;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
@@ -21,16 +22,20 @@ class Comment
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private ?string $author = null;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank
      */
     private ?string $text = null;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Email
      */
     private ?string $email = null;
 
