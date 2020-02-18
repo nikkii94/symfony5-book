@@ -24,6 +24,9 @@ config:
 ssh:
 	@docker exec -it $(app_container_name) bash
 
+exec:
+	@docker exec -it $(app_container_name) bash $$cmd
+
 export-ssl:
 	rm -rf certs
 	@docker cp $(nginx_container_name):/etc/ssl ./certs
@@ -35,6 +38,20 @@ inspect:
 #https://gist.github.com/gilyes/525cc0f471aafae18c3857c27519fc4b
 dump-sql:
 	@docker exec $(postgres_container_name) pg_dump $(postgres_db) -U $(postgres_user) > dump/dump_`date +%Y-%m-%d"_"%H_%M_%S`.sql
+
+sql:
+	@docker exec -it $(postgres_container_name) psql -U $(postgres_user) -W $(postgres_pw) $(postgres_db)
+
+# make:migration
+create-migration:
+	@make exec cmd="php bin/console m:m"
+
+# doctrine:migrations:migrate
+migrate:
+	@make exec cmd="php bin/console d:m:m"
+
+#entity
+
 
 #check: composer-validate cs-check phpstan psalm
 #
