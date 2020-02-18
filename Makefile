@@ -50,7 +50,8 @@ create-migration:
 migrate:
 	@make exec cmd="php bin/console d:m:m"
 
-#entity
+phpstan:
+	cd app && php vendor/bin/phpstan analyze -c phpstan.neon src --level 7
 
 
 #check: composer-validate cs-check phpstan psalm

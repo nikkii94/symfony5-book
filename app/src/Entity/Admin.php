@@ -17,27 +17,27 @@ class Admin implements UserInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $username;
+    private ?string $username = null;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private ?string $password = null;
 
     public function __toString() :string
     {
-        return $this->username;
+        return (string)$this->username;
     }
 
     public function getId(): ?int
@@ -99,15 +99,16 @@ class Admin implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getSalt()
+    public function getSalt() :?string
     {
         // not needed when using the "bcrypt" algorithm in security.yaml
+        return '';
     }
 
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials() :void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;

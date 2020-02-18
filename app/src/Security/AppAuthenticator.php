@@ -83,7 +83,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
-     * @param $credentials
+     * @param array $credentials
      * @return string|null
      */
     public function getPassword($credentials): ?string
@@ -91,7 +91,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
         return $credentials['password'];
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey) :RedirectResponse
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey) :RedirectResponse
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
