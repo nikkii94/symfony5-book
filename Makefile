@@ -25,7 +25,7 @@ ssh:
 	@docker exec -it $(app_container_name) bash
 
 exec:
-	@docker exec -it $(app_container_name) bash $$cmd
+	@docker exec -it $(app_container_name) $$cmd
 
 export-ssl:
 	rm -rf certs
@@ -51,7 +51,10 @@ migrate:
 	@make exec cmd="php bin/console d:m:m"
 
 phpstan:
-	cd app && php vendor/bin/phpstan analyze -c phpstan.neon src --level 7
+	@make exec cmd="php vendor/bin/phpstan analyze -c phpstan.neon src --level 7"
+
+test:
+	@make exec cmd="php bin/phpunit"
 
 
 #check: composer-validate cs-check phpstan psalm
