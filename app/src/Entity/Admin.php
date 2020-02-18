@@ -102,7 +102,7 @@ class Admin implements UserInterface
     public function getSalt() :?string
     {
         // not needed when using the "bcrypt" algorithm in security.yaml
-        return '';
+        return null;
     }
 
     /**

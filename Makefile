@@ -56,6 +56,9 @@ phpstan:
 test:
 	@make exec cmd="php bin/phpunit"
 
+fixtures:
+	@make exec cmd="php bin/console doctrine:fixtures:load"
+
 
 #check: composer-validate cs-check phpstan psalm
 #
