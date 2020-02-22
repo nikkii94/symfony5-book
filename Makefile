@@ -44,7 +44,7 @@ sql:
 	@docker exec -it $(postgres_container_name) psql -U $(postgres_user) -W $(postgres_pw) $(postgres_db)
 
 # make:migration
-create-migration:
+migration:
 	@make exec cmd="php bin/console m:m"
 
 # doctrine:migrations:migrate
