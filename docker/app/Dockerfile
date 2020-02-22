@@ -7,6 +7,9 @@ ARG APP_ENV
 ARG PROJECT_ROOT
 ARG TIMEZONE
 
+ARG CHROME_VERSION
+ARG CHROMEDRIVER_VERSION
+
 ENV APP_ENV=$APP_ENV
 
 # Install dependencies & php extensions
@@ -16,6 +19,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         curl \
         nano \
         unzip \
+        wget \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng-dev \
@@ -104,6 +108,29 @@ RUN apt-get update && \
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get update && apt-get install -y yarn --no-install-recommends
+
+# Set the Chrome repo.
+RUN apt-get update && \
+    curl -sS https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | tee /etc/apt/sources.list.d/google.list
+
+# Install Chrome for Panther
+RUN apt-get update && \
+    apt-get install -y chromium \
+        google-chrome-stable
+
+# Install the version of Chromedriver that is compatible with the installed google-chrome
+RUN apt-get update \
+    && CHROME_VERSION=`google-chrome --version | cut -d' ' -f3 | cut -d. -f1-3` \
+    && CHROMEDRIVER_VERSION=`curl -sSL https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION}` \
+    && curl -sSL https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip -o /tmp/chromedriver.zip \
+    && unzip /tmp/chromedriver.zip \
+    && mv chromedriver /usr/local/bin/chromedriver \
+    && rm /tmp/chromedriver.zip
+
+# Set panther env variable to run in docker
+ENV PANTHER_NO_SANDBOX=1 \
+    PANTHER_CHROME_DRIVER_BINARY=/usr/local/bin/chromedriver
 
 RUN usermod -u 1000 www-data
 

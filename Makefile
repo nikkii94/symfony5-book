@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 app_container_name=sf5_app
 nginx_container_name=sf5_nginx
 postgres_container_name=symfony5-book_database_1
@@ -54,10 +55,16 @@ phpstan:
 	@make exec cmd="php vendor/bin/phpstan analyze -c phpstan.neon src --level 7"
 
 test:
-	@make exec cmd="php bin/phpunit"
+	@make fixtures
+	@make test-only
 
 fixtures:
-	@make exec cmd="php bin/console doctrine:fixtures:load"
+	@make exec cmd="php bin/console doctrine:fixtures:load -n"
+
+test-only:
+	@make exec cmd="php bin/phpunit"
+
+.PHONY: tests
 
 
 #check: composer-validate cs-check phpstan psalm

@@ -11,6 +11,8 @@ services:
                 PHP_VERSION: ${PHP_VERSION}
                 PROJECT_ROOT: ${PROJECT_ROOT}
                 TIMEZONE: ${TIMEZONE}
+                CHROME_VERSION: '80'
+                CHROMEDRIVER_VERSION: '80.0.3987.106'
         env_file:
             - .env
         environment:
