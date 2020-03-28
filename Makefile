@@ -88,6 +88,7 @@ show-failed-messages:
 retry-failed-messages:
 	@make exec cmd="php bin/console messenger:failed:retry"
 
+# php bin/console workflow:dump comment | dot -Tpng -o workflow_comment.png
 workflow:
 	@make exec cmd="php bin/console workflow:dump $(WORKFLOW_NAME) | dot -Tpng -o workflow_$(WORKFLOW_NAME).png"
 
