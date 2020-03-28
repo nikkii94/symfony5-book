@@ -22,6 +22,9 @@ services:
             - ./app:${PROJECT_ROOT}:rw,cached
         depends_on:
             - database
+        links:
+          - mailcatcher:mailcatcher
+          - rabbitmq:rabbitmq
 
     nginx:
         container_name: sf5_nginx
@@ -67,6 +70,7 @@ services:
 
     rabbitmq:
         image: rabbitmq:3.7-management
+        container_name: sf5_rabbitmq
         hostname: rabbitmq
         user: rabbitmq
         ports:
@@ -79,6 +83,13 @@ services:
             RABBITMQ_DEFAULT_USER: rabbitmq
             RABBITMQ_DEFAULT_PASS: rabbitmq
             RABBITMQ_DEFAULT_VHOST: /
+
+    mailcatcher:
+        image: schickling/mailcatcher
+        container_name: sf5_mailcatcher
+        ports:
+#            - 1025:1025
+            - 1080:1080
 
 volumes:
     db-data:

@@ -37,6 +37,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         supervisor \
         cron \
         openssl \
+        graphviz \
     && docker-php-ext-install \
         gettext \
         gd \

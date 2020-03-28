@@ -79,6 +79,15 @@ rabbitmq:
 messages:
 	@make exec cmd="php bin/console messenger:consume async -vv"
 
+show-failed-messages:
+	@make exec cmd="php bin/console messenger:failed:show"
+
+retry-failed-messages:
+	@make exec cmd="php bin/console messenger:failed:retry"
+
+workflow:
+	@make exec cmd="php bin/console workflow:dump $(WORKFLOW_NAME) | dot -Tpng -o workflow_$(WORKFLOW_NAME).png"
+
 .PHONY: tests
 
 
