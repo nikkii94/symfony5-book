@@ -39,12 +39,22 @@ class Conference
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="conference", orphanRemoval=true)
      */
-    private Collection $comments;
+    private ?Collection $comments;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      */
     private ?string $slug = null;
+
+    public function __serialize(): array
+    {
+        return ['id' => $this->getId()];
+    }
+
+    public function __unserialize(array $data): void
+    {
+        $this->id = $data['id'];
+    }
 
     public function __construct()
     {
@@ -53,7 +63,7 @@ class Conference
 
     public function __toString() :string
     {
-        return (string) $this->city . ' ' . $this->year;
+        return $this->city . ' ' . $this->year;
     }
 
     /**

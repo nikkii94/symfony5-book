@@ -31,6 +31,9 @@ ssh:
 exec:
 	@docker exec -it $(app_container_name) $$cmd
 
+cc:
+	@make exec cmd="php bin/console c:c"
+
 export-ssl:
 	rm -rf certs
 	@docker cp $(nginx_container_name):/etc/ssl ./certs

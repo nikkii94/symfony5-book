@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Controller;
-
 
 use App\Entity\Comment;
 use App\Message\CommentMessage;
@@ -25,13 +23,11 @@ use Twig\Environment;
  */
 class AdminController extends AbstractController
 {
-    private Environment $twig;
     private EntityManagerInterface $entityManager;
     private MessageBusInterface $bus;
 
-    public function __construct(Environment $twig, EntityManagerInterface $entityManager, MessageBusInterface $bus)
+    public function __construct(EntityManagerInterface $entityManager, MessageBusInterface $bus)
     {
-        $this->twig = $twig;
         $this->entityManager = $entityManager;
         $this->bus = $bus;
     }

@@ -4,6 +4,7 @@
 namespace App\MessageHandler;
 
 
+use App\Entity\Comment;
 use App\ImageOptimizer;
 use App\Message\CommentMessage;
 use App\Repository\CommentRepository;
@@ -60,7 +61,7 @@ class CommentMessageHandler implements MessageHandlerInterface
     public function __invoke(CommentMessage $commentMessage)
     {
         $comment = $this->commentRepository->find($commentMessage->getId());
-        if (!$comment) {
+        if (!$comment instanceof Comment) {
             return;
         }
 
@@ -95,7 +96,7 @@ class CommentMessageHandler implements MessageHandlerInterface
             );
         }
         elseif($this->workflow->can($comment, 'optimize')){
-            if ($comment->getPhotoFilename()) {
+            if (!empty($comment->getPhotoFilename())) {
                 $this->imageOptimizer->resize($this->photoDir.'/'.$comment->getPhotoFilename());
             }
             $this->workflow->apply($comment, 'optimize');

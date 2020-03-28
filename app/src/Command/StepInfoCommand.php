@@ -14,7 +14,7 @@ use Symfony\Contracts\Cache\ItemInterface;
 
 class StepInfoCommand extends Command
 {
-    private CacheInterface $cache;
+    private ?CacheInterface $cache;
 
     public function __construct(CacheInterface $cache)
     {

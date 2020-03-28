@@ -7,7 +7,7 @@ namespace App\Message;
 class CommentMessage
 {
     private ?int $id;
-    private array $context;
+    private ?array $context;
 
     public function __construct(int $id, array $context = [])
     {
@@ -24,9 +24,9 @@ class CommentMessage
     }
 
     /**
-     * @return array
+     * @return array|null
      */
-    public function getContext(): array
+    public function getContext(): ?array
     {
         return $this->context;
     }
