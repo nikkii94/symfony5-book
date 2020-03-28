@@ -40,6 +40,13 @@ inspect:
 dump-sql:
 	@docker exec $(postgres_container_name) pg_dump $(postgres_db) -U $(postgres_user) > dump/dump_`date +%Y-%m-%d"_"%H_%M_%S`.sql
 
+dump-data:
+	@docker exec $(postgres_container_name) pg_dump $(postgres_db) -U $(postgres_user) --data-only > dump/dump_data_`date +%Y_%m_%d"__"%H_%M_%S`.sql
+
+# make restore-data DUMP_FILE_NAME=dump_data_2020-02-17_23_41_00.sql
+restore-data:
+	@docker exec $(postgres_container_name) psql $(postgres_db) -U $(postgres_user) < dump/$(DUMP_FILE_NAME).sql
+
 sql:
 	@docker exec -it $(postgres_container_name) psql -U $(postgres_user) -W $(postgres_pw) $(postgres_db)
 
@@ -63,6 +70,14 @@ fixtures:
 
 test-only:
 	@make exec cmd="php bin/phpunit"
+
+# open rabbitmq gui
+rabbitmq:
+	start http://localhost:15672
+
+# show message queue
+messages:
+	@make exec cmd="php bin/console messenger:consume async -vv"
 
 .PHONY: tests
 
