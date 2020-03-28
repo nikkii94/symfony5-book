@@ -1,4 +1,7 @@
 SHELL := /bin/bash
+
+app_url=symfony5book.local
+
 app_container_name=sf5_app
 nginx_container_name=sf5_nginx
 postgres_container_name=symfony5-book_database_1
@@ -11,7 +14,7 @@ build:
 	@docker-compose -f docker-compose.yml build
 
 start:
-	@docker-compose -f docker-compose.yml up -d && start https://symfony5book.local/
+	@docker-compose -f docker-compose.yml up -d && start https://$(app_url)
 
 stop:
 	@docker-compose stop
@@ -87,6 +90,12 @@ retry-failed-messages:
 
 workflow:
 	@make exec cmd="php bin/console workflow:dump $(WORKFLOW_NAME) | dot -Tpng -o workflow_$(WORKFLOW_NAME).png"
+
+purge-http-cache:
+	@make exec cmd="rm -rf var/cache/dev/http_cache"
+
+invalidate-cache:
+	curl -I -X PURGE -u admin:admin https://$(app_url)/admin/http-cache/
 
 .PHONY: tests
 
